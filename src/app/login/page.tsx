@@ -1,6 +1,7 @@
 "use client";
 
-import React from 'react'
+import React from 'react';
+import Link from 'next/link';
 
 const Login_Page = () => {
   return (    
@@ -36,7 +37,7 @@ const Login_Page = () => {
     {/* sign in button */}
     <button className=" bg-black text-white w-full md:w-1/4 h-12 md:h-16 mt-10 px-4 rounded-sm">SIGN IN</button>
 
-    <p className='text-gray-400 font-Helvetica text-center pt-5 mt-5'>Not a Member? <span className='text-black'><u>Join Us.</u></span></p>
+    <p className='text-gray-400 font-Helvetica text-center pt-5 mt-5'>Not a Member? <Link href="/join-us"><span className='text-black'><u>Join Us.</u></span></Link></p>
       </div>
   )
 }

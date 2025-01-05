@@ -7,6 +7,7 @@ import { BsFillHandThumbsDownFill } from "react-icons/bs";
 import { ImMobile } from "react-icons/im";
 import { RiMessage2Fill } from "react-icons/ri";
 import { IoMdMail } from "react-icons/io";
+import Link from 'next/link';
 
 
 const ContactUs = () => {
@@ -40,15 +41,15 @@ const ContactUs = () => {
         <p className='mb-4'>
         <strong>Nike Members</strong>
          can store multiple debit or credit cards in their profile for faster checkout.
-         If you're not already a Member, <a href="/join-us" 
-         className='underline hover:text-gray-300'>join us</a> today.</p>
+         If you're not already a Member, <Link href="/join-us" 
+         className='underline hover:text-gray-300'>join us</Link> today.</p>
 
         </div>
 
         {/* buttons */}
         <div className="flex flex-wrap gap-4 mt-4">
-            <button className="bg-black text-white px-6 py-2 rounded-full">JOIN US</button>
-            <button className="bg-black text-white px-6 py-2 rounded-full">SHOP NIKE</button>
+            <Link href="/join-us"><button className="bg-black text-white px-6 py-2 rounded-full">JOIN US</button></Link>
+            <Link href="/all-Products"><button className="bg-black text-white px-6 py-2 rounded-full">SHOP NIKE</button></Link>
         </div>
 
         {/* FAQ */}

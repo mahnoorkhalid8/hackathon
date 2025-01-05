@@ -4,6 +4,7 @@ import React from 'react';
 import { GoHeart } from "react-icons/go";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { LuIndianRupee } from "react-icons/lu";
+import Link from 'next/link';
 
 const Cart = () => {
   return (
@@ -85,7 +86,7 @@ const Cart = () => {
             <hr />
 
             {/* button */}
-            <button className="bg-black text-white text-center w-full py-5 text-xl md:text-2xl rounded-full">Member Checkout</button>
+            <Link href="/checkout"><button className="bg-black text-white text-center w-full py-5 text-xl md:text-2xl rounded-full">Member Checkout</button></Link>
           
           </div>
     </div>

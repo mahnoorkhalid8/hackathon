@@ -25,14 +25,17 @@ const Header = () => {
            <SiJordan className="w-8 h-8"/></div>
 
             <div className='flex space-x-4'>
-                <span>Find a Store</span>
+                <Link href="/all-Products"><span className='hover:text-black'>Find a Store</span></Link>
                 <span>|</span>
-                <span>Help</span>
+
+                <Link href="/contact-us"><span className='hover:text-black'>Help</span></Link>
                 <span>|</span>
-                <span>Join Us</span>
+
+                <Link href="/join-us"><span className='hover:text-black'>Join Us</span></Link>
                 <span>|</span>
-                <span>Sign In</span>
-            </div>
+
+                <Link href="/login"><span className='hover:text-black'>Sign In</span></Link>
+            </div> 
         </div>
 
     {/* main navigation bar */}

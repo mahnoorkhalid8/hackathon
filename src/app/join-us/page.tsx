@@ -1,6 +1,7 @@
 "use client";
 
-import React from 'react'
+import React from 'react';
+import Link from 'next/link';
 
 const JoinUs = () => {
   return (
@@ -57,7 +58,7 @@ const JoinUs = () => {
     <button className=" bg-black text-white w-full md:w-[30%] h-12 md:h-16 mt-6 text-sm md:text-base rounded-md">JOIN US</button>
 
     <p className='text-gray-400 text-sm text-center mt-3'>
-    Already a Member? <span className='text-black'><u>Sign In.</u></span></p>
+    Already a Member? <Link href="/login"><span className='text-black'><u>Sign In.</u></span></Link></p>
     
     </div>
   )
