@@ -32,7 +32,7 @@ const Login_Page = () => {
     <p className='hover:underline cursor-pointer'>Forgotten your password?</p>
     </div>
 
-    <p className='text-gray-400 font-Helvetica text-center w-full md:w-1/4 pt-5 mt-5'>By logging in, you agree to Nike's <u>Privacy Policy</u> and <u>Terms of Use.</u></p>
+    <p className='text-gray-400 font-Helvetica text-center w-full md:w-1/4 pt-5 mt-5'>By logging in, you agree to Nike&apos;s <u>Privacy Policy</u> and <u>Terms of Use.</u></p>
 
     {/* sign in button */}
     <button className=" bg-black text-white w-full md:w-1/4 h-12 md:h-16 mt-10 px-4 rounded-sm">SIGN IN</button>

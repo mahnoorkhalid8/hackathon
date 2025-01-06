@@ -2,7 +2,7 @@
 
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
-import { LuIndianRupee } from "react-icons/lu";
+import { FaRupeeSign } from "react-icons/fa6";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect } from "react";
@@ -72,10 +72,10 @@ export default function Home() {
           <div className="flex justify-between items-center mt-2">
             <h4 className="flex font-bold text-sm">Nike Air Max Pulse</h4>
             <h4 className="font-medium text-base flex items-center">
-            <LuIndianRupee className="mr-1"/>13 995</h4>
+            <FaRupeeSign  className="mr-1"/>13 995</h4>
           </div>
 
-          <p className="text-gray-500">Women's Shoes</p>
+          <p className="text-gray-500">Women&apos;s Shoes</p>
       </div>
 
 {/* img2 */}
@@ -85,9 +85,9 @@ export default function Home() {
           <div className="flex justify-between">
             <h4 className="flex font-bold text-sm">Nike Air Max Pulse</h4>
             <h4 className="font-medium text-base flex items-center justify-center">
-            <LuIndianRupee className="mr-1"/>13 995</h4>
+            <FaRupeeSign  className="mr-1"/>13 995</h4>
           </div>
-          <p className="text-gray-500">Men's Shoes</p>
+          <p className="text-gray-500">Men&apos;s Shoes</p>
       </div>
 
 {/* img3 */}
@@ -97,9 +97,9 @@ export default function Home() {
           <div className="flex justify-between">
             <h4 className="flex font-bold text-sm">Nike Air Max 97 SE</h4>
             <h4 className="font-medium text-base flex items-center justify-center">
-            <LuIndianRupee className="mr-1"/>16 995</h4>
+            <FaRupeeSign  className="mr-1"/>16 995</h4>
           </div>
-          <p className="text-gray-500">Men's Shoes</p>
+          <p className="text-gray-500">Men&apos;s Shoes</p>
       </div>
 
   </div>
@@ -129,7 +129,7 @@ export default function Home() {
 
 {/* heading + arrow icons */}
       <div className="flex justify-end gap-2 ">
-        <h4 className="font-bold text-md">Shop Men's</h4>
+        <h4 className="font-bold text-md">Shop Men&apos;s</h4>
         <IoIosArrowBack className="my-1 bg-gray-300 w-30 h-30 pt-0.5 pb-0.5 rounded-full hover:border"/>
          <IoIosArrowForward className="my-1 bg-gray-300 w-30 h-30 pt-0.5 pb-0.5 rounded-full hover:border"/>
       </div>
@@ -143,10 +143,10 @@ export default function Home() {
 
         <div className="flex font-semibold md:justify-between items-center mt-5 ">
           <h1 className="font-semibold text-sm">Nike Dri-FIT ADV TechKnit Ultra</h1>
-          <h1 className="flex items-center text-sm"><LuIndianRupee className="mt-1"/>3 895</h1>
+          <h1 className="flex items-center text-sm"><FaRupeeSign  className="mb-0.5"/>3 895</h1>
         </div>
 
-        <p className="text-gray-500">Men's Short-Sleeves</p>
+        <p className="text-gray-500">Men&apos;s Short-Sleeves</p>
         <p className="text-gray-500">Running Top</p>
       </div>
 
@@ -156,10 +156,10 @@ export default function Home() {
 
         <div className="flex font-semibold md:justify-between items-center mt-5 ">
           <h1 className="font-semibold text-sm">Nike Dri-FIT Challenger </h1>
-          <h1 className="flex items-center text-sm"><LuIndianRupee className="mt-1"/>2 495</h1>
+          <h1 className="flex items-center text-sm"><FaRupeeSign  className="mb-0.5"/>2 495</h1>
       </div>
     
-        <p className="text-gray-500">Men's 8cm (approx.) 2-in-1 Versatile Short</p>
+        <p className="text-gray-500">Men&apos;s 8cm (approx.) 2-in-1 Versatile Short</p>
       </div>
 
     </div>
@@ -171,7 +171,7 @@ export default function Home() {
 
 {/* heading + arrow icons */}
     <div className="flex justify-end gap-2 ">
-      <h4 className="font-bold text-md">Shop Women's</h4>
+      <h4 className="font-bold text-md">Shop Women&apos;s</h4>
       <IoIosArrowBack className="my-1 bg-gray-300 w-30 h-30 pt-0.5 pb-0.5 rounded-full hover:border"/>
       <IoIosArrowForward className="my-1 bg-gray-300 w-30 h-30 pt-0.5 pb-0.5 rounded-full hover:border"/>
     </div>
@@ -185,10 +185,10 @@ export default function Home() {
 
       <div className="flex font-semibold md:justify-between items-center mt-5 ">
         <h1 className="font-semibold text-sm">Nike Dri-FIT ADV Run Division </h1>
-        <h1 className="flex items-center text-sm"><LuIndianRupee className="mt-1"/>5 295</h1>
+        <h1 className="flex items-center text-sm"><FaRupeeSign  className="mb-0.5"/>5 295</h1>
       </div>
 
-      <p className="text-gray-500">Women's Long-Sleeves</p>
+      <p className="text-gray-500">Women&apos;s Long-Sleeves</p>
       <p className="text-gray-500">Running Top</p>
     </div>
 
@@ -198,10 +198,10 @@ export default function Home() {
 
       <div className="flex font-semibold md:justify-between items-center mt-5">
         <h1 className="font-semibold text-sm">Nike Fast </h1>
-        <h1 className="flex items-center text-sm"><LuIndianRupee className="mt-1"/>3 795</h1>
+        <h1 className="flex items-center text-sm"><FaRupeeSign  className="mb-0.5"/>3 795</h1>
       </div>
 
-        <p className="text-gray-500">Women's Mid-Rise 7/8 Running</p>
+        <p className="text-gray-500">Women&apos;s Mid-Rise 7/8 Running</p>
         <p className="text-gray-500">Leggings with Pocket</p>
       </div>
 
@@ -212,7 +212,7 @@ export default function Home() {
 </div>
 
 {/* don't miss */}
-      <h1 className="font-bold h-[27px] w-[161.59px] text-lg weight-500 leading-[28px] mt-8 mb-4">Don't Miss</h1>
+      <h1 className="font-bold h-[27px] w-[161.59px] text-lg weight-500 leading-[28px] mt-8 mb-4">Don&apos;t Miss</h1>
       <img src="Image (8).png" alt="coat" className="w-full h-auto md:h-[700px] object-cover rounded-md mb-8" data-aos="fade-up"/>
 
       <div className="text-center space-y-3">
@@ -229,13 +229,13 @@ export default function Home() {
       <div className="relative w-full md:w-[440px] h-auto md:h-[540px]">
 
         <img src="ess1.png" alt="Men's" className="w-[44opx] h-[540px] object-cover rounded-lg" data-aos="fade-up"/>
-        <button className="absolute top-[450px] left-10 bg-white text-black px-5 py-2 rounded-full shadow-md font-semibold-">Men's</button>
+        <button className="absolute top-[450px] left-10 bg-white text-black px-5 py-2 rounded-full shadow-md font-semibold-">Men&apos;s</button>
       </div>
 
       <div className="relative w-full md:w-[440px] h-auto md:h-[540px]">
 
         <img src="ess2.png" alt="Women's" className="w-[44opx] h-[540px] object-cover rounded-lg" data-aos="fade-up"/>
-        <button className="absolute top-[450px] left-10 bg-white text-black px-5 py-1 rounded-full shadow-md font-semibold-">Women's</button>
+        <button className="absolute top-[450px] left-10 bg-white text-black px-5 py-1 rounded-full shadow-md font-semibold-">Women&apos;s</button>
       </div>
 
       <div className="relative w-full md:w-[440px] h-auto md:h-[540px]">
@@ -278,12 +278,12 @@ export default function Home() {
   </div>
 
   <div className='space-y-4'>
-    <h4 className='font-semibold font-[helvetica neue] w-[38.45px] h-[17px]'>Kids'</h4>
+    <h4 className='font-semibold font-[helvetica neue] w-[38.45px] h-[17px]'>Kids&apos;</h4>
       <ul className='space-y-2 font-[helvetica neue] w-[184px] h-[144px]'>
         <li>Infant & Toddler Shoes</li>
-        <li>Kids' Shoes</li>
-        <li>Kids' Jordan Shoes</li>
-        <li>Kids' Basketball Shoes</li>
+        <li>Kids&apos; Shoes</li>
+        <li>Kids&apos; Jordan Shoes</li>
+        <li>Kids&apos; Basketball Shoes</li>
       </ul>
   </div>
 </div>

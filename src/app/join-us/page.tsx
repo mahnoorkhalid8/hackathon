@@ -52,7 +52,7 @@ const JoinUs = () => {
     </div>
 
     <p className='text-gray-400 text-xs md:text-sm text-center w-full md:w-[30%] mt-5'>
-    By creating an account, you agree to Nike's <u>Privacy Policy</u> and <u>Terms of Use.</u></p>
+    By creating an account, you agree to Nike&apos;s <u>Privacy Policy</u> and <u>Terms of Use.</u></p>
 
     {/* sign in button */}
     <button className=" bg-black text-white w-full md:w-[30%] h-12 md:h-16 mt-6 text-sm md:text-base rounded-md">JOIN US</button>

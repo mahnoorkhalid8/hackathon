@@ -3,7 +3,7 @@
 import React from 'react';
 import { RiShoppingBagLine } from "react-icons/ri";
 import { TbMessage2Minus } from "react-icons/tb";
-import { LuIndianRupee } from "react-icons/lu";
+import { FaRupeeSign } from "react-icons/fa6";
 import { PiMailbox } from "react-icons/pi";
 import { FaLocationDot } from "react-icons/fa6";
 import Link from "next/link";
@@ -31,7 +31,7 @@ const Checkout = () => {
         <div className='md:w-[40%] space-y-6'>
             <h1 className='font-semibold text-xl md:text-2xl'>How would you like to get your order?</h1>
 
-            <p className='text-sm md:text-lg text-gray-400 mt-2'>Customs regulation for India require a copy of the recipient's KYC. The address on the 
+            <p className='text-sm md:text-lg text-gray-400 mt-2'>Customs regulation for India require a copy of the recipient&apos;s KYC. The address on the 
             KYC needs to match the shipping address. Our courier will contact you via SMS/email to obtain a copy of your KYC. The KYC 
             will be stored securely and used solely for the purpose of clearing customs (including sharing it with customs officials) 
             for all orders and returns. If your KYC does not match your shipping address, please click the link 
@@ -92,7 +92,7 @@ const Checkout = () => {
         </div>
 
         {/* contact info */}
-        <h1 className='font-semibold text-3xl py-4 mt-5'>What's your contact information?</h1>
+        <h1 className='font-semibold text-3xl py-4 mt-5'>What&apos;s your contact information?</h1>
         
         <fieldset className='mt-3'>
             <input type="email" placeholder='Email' className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
@@ -107,7 +107,7 @@ const Checkout = () => {
         <h6 className='text-gray-500 text-xs mx-4'>A carrier might contact you to confirm delivery.</h6>
 
         {/* PAN */}
-        <h1 className='font-semibold text-3xl py-4 mt-5'>What's your PAN?</h1>
+        <h1 className='font-semibold text-3xl py-4 mt-5'>What&apos;s your PAN?</h1>
 
         <fieldset className='mt-3'>
             <input type="text" placeholder='PAN' className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
@@ -154,7 +154,7 @@ const Checkout = () => {
         <div className='space-y-2 mt-4'>
             <div className='flex justify-between text-gray-400'>
                 <p>Subtotal</p>
-                <p className='flex'>MRP:<LuIndianRupee className=' mr-1 my-1'/>20 890.00</p>
+                <p className='flex'>MRP:<FaRupeeSign  className=' mr-1 my-1'/>20 890.00</p>
             </div>
         
             <div className='flex justify-between text-gray-400'>
@@ -165,7 +165,7 @@ const Checkout = () => {
         
             <div className='flex justify-between text-gray-700'>
                 <p>Total</p>
-                <p className='flex text-black'>MRP:<LuIndianRupee className=' mr-1 my-1'/>20 890.00</p>
+                <p className='flex text-black'>MRP:<FaRupeeSign  className=' mr-1 my-1'/>20 890.00</p>
             </div>
         </div>
 
@@ -181,10 +181,10 @@ const Checkout = () => {
                 </div>
 
                 <div className='w-52 h-52 space-y-1 md:space-y-3'>
-                <p className='text-black'>Nike Dri-FIT ADV TechKnit Ultra Men's Short-Sleeve Running Top</p>
+                <p className='text-black'>Nike Dri-FIT ADV TechKnit Ultra Men&apos;s Short-Sleeve Running Top</p>
                 <p className='text-gray-400'>Qty 1</p>
                 <p className='text-gray-400'>Size L</p>
-                <p className='flex text-gray-400'><LuIndianRupee className=' mr-1 my-1'/>3 895.00</p>
+                <p className='flex text-gray-400'><FaRupeeSign  className=' mr-1 my-1'/>3 895.00</p>
                 </div>
             </div>
 
@@ -194,10 +194,10 @@ const Checkout = () => {
                 </div>
 
                 <div className='w-52 h-52 space-y-1 md:space-y-3'>
-                <p className='text-black'>Nike Air Max 97 SE Men's Shoes</p>
+                <p className='text-black'>Nike Air Max 97 SE Men&apos;s Shoes</p>
                 <p className='text-gray-400'>Qty 1</p>
                 <p className='text-gray-400'>Size UK 8</p>
-                <p className='flex text-gray-400'><LuIndianRupee className=' mr-1 my-1'/>16 995.00</p>
+                <p className='flex text-gray-400'><FaRupeeSign  className=' mr-1 my-1'/>16 995.00</p>
                 </div>
             </div>
 
