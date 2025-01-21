@@ -3,9 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import FooterHandler from "@/components/FooterHandler";
 import HeaderHandler from "@/components/HeaderHandler";
-// import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-// import { AppSidebar } from "@/components/Sidebar"
-
+import { CartProvider } from "@/context/CartContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,18 +31,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <CartProvider>
         <HeaderHandler/>
         <div className="mt-5 mb-5">{children}</div>
-{/* 
-        <SidebarProvider>
-      <AppSidebar />
-      <main>
-        <SidebarTrigger />
-        {children}
-      </main>
-    </SidebarProvider> */}
-
         <FooterHandler/>
+        </CartProvider>
       </body>
     </html>
   );

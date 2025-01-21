@@ -9,8 +9,10 @@ import { GoHeart } from "react-icons/go";
 import { RiShoppingBagLine } from "react-icons/ri";
 import { IoMdMenu } from "react-icons/io";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import { useWishlist } from '@/context/WishlistContext';
 
 const Header = () => {
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const toggleMenu = () => setIsMenuOpen (!isMenuOpen);
 
@@ -19,7 +21,7 @@ const Header = () => {
 
     {/* top bar */}
 
-        <div className="hidden md:flex justify-between text-sm text-gray-500 mb-2">
+        <div className="flex justify-between text-sm text-gray-500 mb-2">
 
           <div className='flex items-center space-x-6'>
            <SiJordan className="w-8 h-8"/></div>
@@ -55,7 +57,7 @@ const Header = () => {
           <Link href="#" className='hover:underline'> Men </Link>
           <Link href="#" className='hover:underline'> Women </Link>
           <Link href="#" className='hover:underline'> Kids </Link>
-          <Link href="#" className='hover:underline'> Sale </Link>
+          <Link href="/checkout" className='hover:underline'> Sale </Link>
           <Link href="#" className='hover:underline'> SNKRS </Link>
         </nav>
 
@@ -70,7 +72,8 @@ const Header = () => {
         </div>
         
         <span><GoHeart/></span>
-        <span><RiShoppingBagLine /></span>
+        <Link href="/cart"><span><RiShoppingBagLine /></span></Link>
+        
 
         {/* mobile menu button */}
         <button onClick={toggleMenu} className='md:hidden text-2xl'>

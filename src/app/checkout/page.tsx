@@ -8,9 +8,12 @@ import { PiMailbox } from "react-icons/pi";
 import { FaLocationDot } from "react-icons/fa6";
 import Link from "next/link";
 import { FaRegCopyright } from "react-icons/fa";
+import { useCart } from '@/context/CartContext';
 
 
 const Checkout = () => {
+    const {cart, setCart} = useCart();
+
   return (
     
     <div className='min-h-screen p-4'>
@@ -202,7 +205,27 @@ const Checkout = () => {
             </div>
 
             </div>
-    </div>
+</div>
+
+{/* cart item section */}
+            <h2>Cart Items</h2>
+            {cart.length === 0 ? (
+                <p>No items in the cart.</p>
+            ) : (
+                <ul>{cart.map((item) => (
+                    <li key={item.id} className='flex gap-2 items-center'>
+                        <div>
+                            <h2>{item.name}</h2>  
+                            <p>${item.price}</p>
+                        </div>
+                        <button onClick={() =>setCart ((prevCart) =>
+                        prevCart.filter((product) => product.id !== item.id) )}>
+                        Remove</button>
+                    </li>
+                ))}
+                </ul>
+            )};
+    
 
     {/* footer */}
     <div className='flex flex-col md:flex-row justify-between items-center p-6 w-full bottom-0 text-sm bg-black'>
