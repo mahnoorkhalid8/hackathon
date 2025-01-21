@@ -9,7 +9,6 @@ import { GoHeart } from "react-icons/go";
 import { RiShoppingBagLine } from "react-icons/ri";
 import { IoMdMenu } from "react-icons/io";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-import { useWishlist } from '@/context/WishlistContext';
 
 const Header = () => {
 
