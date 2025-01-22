@@ -1,11 +1,8 @@
 // "use client";
 
 import { useState } from "react";
-import products from "@/lib/product";
 import { client } from "@/sanity/lib/client";
 import React, { useEffect } from "react";
-import { useCart } from "@/context/CartContext";
-
 
 interface Product {
     id: string;
@@ -33,7 +30,7 @@ const AddToCart = () => {
                 colors, 
                 status,
                 description,
-                "image": image.asset.ref
+                "image": image.asset._ref
                 }`;
                const fetchedProducts = await client.fetch(query);
                setProducts (fetchedProducts)

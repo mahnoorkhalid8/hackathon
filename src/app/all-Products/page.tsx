@@ -319,10 +319,10 @@ const AllProducts = () => {
         <div className="h-100vh w-[70%] container mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
             {filteredProducts.map((product) => (
               <Link
-                href={`/product/${product.id}`}
+                href={`/product/${product.id}`} key={product.id}
               >
                 <div
-                  key={product.id}
+                 
                   className="border-solid shadow-md"
                   data-aos="zoom-out"
                 >
