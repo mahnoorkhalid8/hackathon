@@ -1,6 +1,11 @@
 import { CartProvider } from "@/context/CartContext";
+import type { AppProps } from "next/app";
 
-export default function App({ Component, pageProps} :any) {
+interface CustomProps extends AppProps{
+    customProp ?: string;
+}
+
+export default function App({ Component, pageProps} : CustomProps) {
     return(
         <CartProvider>
             <Component {...pageProps}/>
