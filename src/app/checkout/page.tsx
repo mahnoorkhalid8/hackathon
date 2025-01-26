@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { RiShoppingBagLine } from "react-icons/ri";
 import { TbMessage2Minus } from "react-icons/tb";
 import { FaRupeeSign } from "react-icons/fa6";
@@ -9,10 +9,70 @@ import { FaLocationDot } from "react-icons/fa6";
 import Link from "next/link";
 import { FaRegCopyright } from "react-icons/fa";
 import { useCart } from '@/context/CartContext';
+//import { useRouter } from 'next/router';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+export default function Checkout  () {
+    const {cart} = useCart();
+    const [formData, setFormData] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        pan: "",
+        address:"",
+    });
 
-const Checkout = () => {
-    const {cart, setCart} = useCart();
+    // const [orderId, setOrderId] = useState<string | null>(null);
+    // const [showDialog, setShowDialog] = useState(false);
+    // const router = useRouter();
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {name, value} = e.target;
+        setFormData({...formData, [name] : value});
+    };
+
+    const handleFormSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if(!formData.firstName ||
+            !formData.lastName ||
+            !formData.email ||
+            !formData.phone ||
+            !formData.pan ||
+            !formData.address
+        ){
+            toast.error("Required fields should be filled in!!!");
+            return;
+        }
+
+        // empty cart
+        if(cart.length === 0) {
+            toast.error("Cart is empty...");
+            return;
+        }
+
+        // generate order
+        // const generateOrderId = `Order-${Math.floor(Math.random() * 1000000)}`;
+        // setOrderId(generateOrderId);
+        // setShowDialog(true);
+
+        // sessionStorage.setItem( "orderDetails", JSON.stringify({ formData, cart, orderId: generateOrderId }));
+
+        // email content
+    //     const emailContent = {
+    //         firstName: formData.firstName || "N/A",
+    //         lastName: formData.lastName || "N/A",
+    //         email: formData.email || "N/A",
+    //         phone: formData.phone || "N/A",
+    //         pan: formData.pan || "N/A",
+    //         address: formData.address || "N/A",
+    //         orderId: generateOrderId || "N/A",
+    //         cart: cart.map(item => `${item.name} (Qty: ${item.quantity})`).join(",") || "No items in the Cart",
+    //     };
+    //     console.log("Email Content:", emailContent);
+    // };
 
   return (
     
@@ -43,27 +103,30 @@ const Checkout = () => {
             <div className="flex border-2 border-black border-solid text-lg font-semibold items-center gap-2 p-4 mt-4 rounded-md">
             <PiMailbox className="my-1 text-xl" /><h2>Deliver It</h2>
             </div>
-        
-            <h1 className='font-semibold text-3xl py-4 mt-5'>Enter your name and address:</h1>
 
             {/* form */}
-            <form className='space-y-4'>
+            <form className='space-y-4' onSubmit={handleFormSubmit}>
+            <h1 className='font-semibold text-3xl py-4 mt-5'>Enter your name and address:</h1>
         <fieldset className='flex flex-col space-y-2'>
-            <input type="text" placeholder='First Name' className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
+            <input type="text" placeholder='First Name' name='firstName' value={formData.firstName} onChange={handleInputChange}
+             className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
        
-            <input type="text" placeholder='Last Name' className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
+            <input type="text" placeholder='Last Name' name='lastName' value={formData.lastName} onChange={handleInputChange} 
+            className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
         </fieldset>
 
         <fieldset className='space-y-2'>
-            <input type="text" placeholder='Address Line 1' className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
+            <input type="text" placeholder='Address Line 1' name='address' value={formData.address} onChange={handleInputChange} className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
         </fieldset>
 
         <h6 className='text-gray-400 text-xs mx-4'>We do not ship to P.O.boxes</h6>
 
         <fieldset className=' space-y-2'>
-            <input type="text" placeholder='Addrsess Line 2' className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
+            <input type="text" placeholder='Addrsess Line 2' name='address' value={formData.address} onChange={handleInputChange} 
+            className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
   
-            <input type="text" placeholder='Address Line 3' className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
+            <input type="text" placeholder='Address Line 3' name='address' value={formData.address} onChange={handleInputChange} 
+            className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
         </fieldset>
 
         <div className='flex flex-col md:flex-row gap-2'>
@@ -81,7 +144,7 @@ const Checkout = () => {
             <input type="text" placeholder='India' className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
      
         </div>
-    </form>
+
 
         {/* checkbox */}
         <div className='flex items-center gap-2 mt-4'>
@@ -98,13 +161,15 @@ const Checkout = () => {
         <h1 className='font-semibold text-3xl py-4 mt-5'>What&apos;s your contact information?</h1>
         
         <fieldset className='mt-3'>
-            <input type="email" placeholder='Email' className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
+            <input type="email" placeholder='Email' name='email' value={formData.email}
+        onChange={handleInputChange} className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
         </fieldset>
 
         <h6 className='text-gray-500 text-xs mx-4'>A confirmation email will be sent after checkout.</h6>
 
         <fieldset className='mt-3'>
-            <input type="tel" placeholder='Phone Number' className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
+            <input type="tel" placeholder='Phone Number' name='phone' value={formData.phone}
+            onChange={handleInputChange} className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
         </fieldset>
 
         <h6 className='text-gray-500 text-xs mx-4'>A carrier might contact you to confirm delivery.</h6>
@@ -113,11 +178,12 @@ const Checkout = () => {
         <h1 className='font-semibold text-3xl py-4 mt-5'>What&apos;s your PAN?</h1>
 
         <fieldset className='mt-3'>
-            <input type="text" placeholder='PAN' className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
+            <input type="text" placeholder='PAN' name='pan' value={formData.pan}
+            onChange={handleInputChange} className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
         </fieldset>
 
-        <h6 className='text-gray-500 text-sm mx-4'>Enter your PAN to enable payment with UPI, Net Banking or local card methods</h6>
-
+        <h6 className='text-gray-500 text-sm mx-4'>Enter your PAN to enable payment with UPI, Net Banking or local card methods</h6>    
+        
         {/* checkbox */}
         <div className='flex items-center gap-2 mt-6'>
             <input type="checkbox" className='w-5 h-5'/>
@@ -135,6 +201,7 @@ const Checkout = () => {
 
         {/* button */}
         <button className="bg-gray-100 text-gray-500 mt-20 text-center w-full py-5 mb-8 text-xl rounded-full">Continue</button>
+        </form>
 
         <hr/>
         <h1 className='font-semibold text-xl p-5'>Delivery</h1>
@@ -153,11 +220,25 @@ const Checkout = () => {
         {/* right section */}
          <div className='w-full md:w-[30%] space-y-3'>
             <h1 className='font-semibold text-2xl'>Order Summary</h1>
+            <ul className='space-y-6'>
+                {cart.map((item) => (
+                    <li key={item.id} className='flex items-center'>
+                        <img src={item.imageUrl} alt={item.name}
+                         className='w-[128px] h-[128px] rounded-md border mr-4' />
+                         <div>
+                            <p className='font-normal text-sm'>{item.name}</p>
+                            <p className='text-gray-400'>Qty: {item.quantity}</p>
+                         </div>
+                    </li>
+                ))}
+            </ul>
+            <hr />
         
         <div className='space-y-2 mt-4'>
             <div className='flex justify-between text-gray-400'>
-                <p>Subtotal</p>
-                <p className='flex'>MRP:<FaRupeeSign  className=' mr-1 my-1'/>20 890.00</p>
+                <p>Subtotal:</p>
+                <p className='flex'><FaRupeeSign  className=' mr-1 my-1'/>
+                {cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}</p>
             </div>
         
             <div className='flex justify-between text-gray-400'>
@@ -167,8 +248,9 @@ const Checkout = () => {
             <hr />
         
             <div className='flex justify-between text-gray-700'>
-                <p>Total</p>
-                <p className='flex text-black'>MRP:<FaRupeeSign  className=' mr-1 my-1'/>20 890.00</p>
+                <p>Total:</p>
+                <p className='flex text-black'><FaRupeeSign  className=' mr-1 my-1'/>
+                {cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}</p>
             </div>
         </div>
 
@@ -207,26 +289,6 @@ const Checkout = () => {
             </div>
 </div>
 
-{/* cart item section */}
-            <h2>Cart Items</h2>
-            {cart.length === 0 ? (
-                <p>No items in the cart.</p>
-            ) : (
-                <ul>{cart.map((item) => (
-                    <li key={item.id} className='flex gap-2 items-center'>
-                        <div>
-                            <h2>{item.name}</h2>  
-                            <p>${item.price}</p>
-                        </div>
-                        <button onClick={() =>setCart ((prevCart) =>
-                        prevCart.filter((product) => product.id !== item.id) )}>
-                        Remove</button>
-                    </li>
-                ))}
-                </ul>
-            )};
-    
-
     {/* footer */}
     <div className='flex flex-col md:flex-row justify-between items-center p-6 w-full bottom-0 text-sm bg-black'>
        
@@ -257,8 +319,10 @@ const Checkout = () => {
 
     </div>
 
+{/* toast container */}
+<ToastContainer/>
     </div>
-  )
-}
+  );
+};
 
-export default Checkout
+};

@@ -15,7 +15,6 @@ import Link from "next/link";
 import Searchbar from "@/components/Searchbar";
 
 const AllProducts = () => {
-
   useEffect(() => {
     AOS.init({
       duration: 1000, // Animation duration in ms
@@ -184,7 +183,7 @@ const AllProducts = () => {
           </div>
         </div>
 
-      {/* sidebar (for mobile) */}
+        {/* sidebar (for mobile) */}
         <div
           className={` inset-0  z-50 transform ${
             isSidebarOpen ? "translate-x-0" : "-translate-x-full"
@@ -315,17 +314,11 @@ const AllProducts = () => {
         {/* (right section) */}
         {/* searchbar component */}
         <div className="container py-4">
-        <Searchbar onSearch={setSearchQuery} />
-        <div className="h-100vh w-[70%] container mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+          <Searchbar onSearch={setSearchQuery} />
+          <div className="h-100vh w-[70%] container mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
             {filteredProducts.map((product) => (
-              <Link
-                href={`/product/${product.id}`} key={product.id}
-              >
-                <div
-                 
-                  className="border-solid shadow-md"
-                  data-aos="zoom-out"
-                >
+              <Link href={`/product/${product.id}`} key={product.id}>
+                <div className="border-solid shadow-md" data-aos="zoom-out">
                   <img
                     src={product.image}
                     alt={product.name}
@@ -343,51 +336,49 @@ const AllProducts = () => {
                       <FaRupeeSign className="mr-1 my-1" />
                       {product.price}
                     </h4>
-                    
                   </div>
                 </div>
               </Link>
             ))}
-        </div>
+          </div>
         </div>
       </div>
 
-        {/* related categories  */}
-        <div className="mt-12 px-6 md:px-20 lg:px-32">
-          <h1 className="font-bold text-2xl mx-7 mb-5">Related Categories</h1>
+      {/* related categories  */}
+      <div className="mt-12 px-6 md:px-20 lg:px-32">
+        <h1 className="font-bold text-2xl mx-7 mb-5">Related Categories</h1>
 
-          <div className="flex flex-wrap gap-4 text-sm text-gray-400">
-            <span className="px-6 py-2 hover:text-gray-600">
-              Best Selling Products
-            </span>
-            <span className="px-6 py-2 hover:text-gray-600">Best Shoes</span>
-            <span className="px-6 py-2 hover:text-gray-600">
-              New Basketball Shoes
-            </span>
-            <span className="px-6 py-2 hover:text-gray-600">
-              New Football Shoes
-            </span>
-            <span className="px-6 py-2 hover:text-gray-600">
-              New Men&apos;s Shoes
-            </span>
-            <span className="px-6 py-2 hover:text-gray-600">
-              New Running Shoes
-            </span>
-            <span className="px-6 py-2 hover:text-gray-600">
-              Best Men&apos;s Shoes
-            </span>
-            <span className="px-6 py-2 hover:text-gray-600">
-              New Jordan Shoes
-            </span>
-            <span className="px-6 py-2 hover:text-gray-600">
-              Best Women&apos;s Shoes
-            </span>
-            <span className="px-6 py-2 hover:text-gray-600">
-              Best Training & Gym
-            </span>
-          </div>
+        <div className="flex flex-wrap gap-4 text-sm text-gray-400">
+          <span className="px-6 py-2 hover:text-gray-600">
+            Best Selling Products
+          </span>
+          <span className="px-6 py-2 hover:text-gray-600">Best Shoes</span>
+          <span className="px-6 py-2 hover:text-gray-600">
+            New Basketball Shoes
+          </span>
+          <span className="px-6 py-2 hover:text-gray-600">
+            New Football Shoes
+          </span>
+          <span className="px-6 py-2 hover:text-gray-600">
+            New Men&apos;s Shoes
+          </span>
+          <span className="px-6 py-2 hover:text-gray-600">
+            New Running Shoes
+          </span>
+          <span className="px-6 py-2 hover:text-gray-600">
+            Best Men&apos;s Shoes
+          </span>
+          <span className="px-6 py-2 hover:text-gray-600">
+            New Jordan Shoes
+          </span>
+          <span className="px-6 py-2 hover:text-gray-600">
+            Best Women&apos;s Shoes
+          </span>
+          <span className="px-6 py-2 hover:text-gray-600">
+            Best Training & Gym
+          </span>
         </div>
-      
+      </div>
     </div>
   );
 };
