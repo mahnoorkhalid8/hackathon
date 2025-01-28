@@ -2,9 +2,18 @@
 
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
+import { useEffect, useState } from "react";
 
 export default function Shop() {
   const { cart, removeFromCart, updateCartProductQuantity } = useCart();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Check login status from session storage
+    const loginStatus = sessionStorage.getItem("isLogin");
+    setIsLoggedIn(loginStatus === "true");
+  }, []);
+
   const subTotal = cart.reduce(
     (total, item) => total + item.price * item.quantity,
     0
@@ -101,11 +110,19 @@ export default function Shop() {
         <hr />
 
         {/* button */}
-        <Link href="/checkout">
-          <button className="bg-black text-white text-center w-full py-4 text-xl md:text-2xl rounded-full my-3">
-            Member Checkout
-          </button>
-        </Link>
+        {isLoggedIn ? (
+          <Link href="/checkout">
+            <button className="bg-black text-white text-center w-full py-4 text-xl md:text-2xl rounded-full my-3">
+              Member Checkout
+            </button>
+          </Link>
+        ) : (
+          <Link href="/login">
+            <button className="bg-blue-500 text-white text-center w-full py-4 text-xl md:text-2xl rounded-full my-3 hover:bg-blue-600 transition duration-200">
+              Sign In to Your Account
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );

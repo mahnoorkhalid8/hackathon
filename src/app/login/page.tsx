@@ -1,45 +1,172 @@
 "use client";
+import React, { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import React from 'react';
-import Link from 'next/link';
+const SignIn: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [buttonLoading, setButtonLoading] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
-const Login_Page = () => {
-  return (    
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
-    <div className='flex flex-col justify-center items-center min-h-screen px-4 md:px-0'>
+  const validateFields = () => {
+    let isValid = true;
 
-        {/* logo & heading */}
-        <img src="nike.png" alt="logo" className='w-24 h-24 md:w-40 md:h-40 mb-4' />
-        <h1 className='font-Helvetica text-2xl md:text-3xl my-2 text-center max-w-xs font-bold'>YOUR ACCOUNT FOR EVERYTHING NIKE</h1>  
-        
-        {/* input fields */}
-        <fieldset className='w-full md:w-1/4 mt-5'>
-            <input type="email" placeholder='Email address' className='w-full p-3 border rounded-md mb-3'/>
-        </fieldset>
+    if (!email || !validateEmail(email)) {
+      setEmailError("Please enter a valid email address.");
+      isValid = false;
+    } else {
+      setEmailError("");
+    }
 
-        <fieldset className='w-full md:w-1/4 mt-3'>
-            <input type="password" placeholder='Password' className='w-full p-3 border rounded-md mb-3'/>
-        </fieldset>
+    if (!password || password.length < 6) {
+      setPasswordError("Password must be at least 6 characters long.");
+      isValid = false;
+    } else {
+      setPasswordError("");
+    }
 
-    <div className='flex flex-col md:flex-row justify-between items-center gap-4 md:gap-8 mt-4 text-gray-400'>
-        {/* Checkbox and Label */}
-    <label className='flex items-center gap-2'>
-        <input type="checkbox" className='accent-white border-gray-400 border-solid w-4 h-4'/>
-        <span>Keep me signed in</span>
-    </label>
-  
-    {/* Forgot Password Text */}
-    <p className='hover:underline cursor-pointer'>Forgotten your password?</p>
-    </div>
+    return isValid;
+  };
 
-    <p className='text-gray-400 font-Helvetica text-center w-full md:w-1/4 pt-5 mt-5'>By logging in, you agree to Nike&apos;s <u>Privacy Policy</u> and <u>Terms of Use.</u></p>
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setButtonLoading(true);
 
-    {/* sign in button */}
-    <button className=" bg-black text-white w-full md:w-1/4 h-12 md:h-16 mt-10 px-4 rounded-sm">SIGN IN</button>
+    if (!validateFields()) {
+      setButtonLoading(false);
+      return;
+    }
 
-    <p className='text-gray-400 font-Helvetica text-center pt-5 mt-5'>Not a Member? <Link href="/join-us"><span className='text-black'><u>Join Us.</u></span></Link></p>
+    const storedData = localStorage.getItem("nikeMemberData");
+
+    if (storedData) {
+      const parsedData = JSON.parse(storedData);
+
+      if (parsedData.email === email && parsedData.password === password) {
+          toast.success('Successfully signed in!', {
+                position: 'top-center',
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
+              })
+              setTimeout(() => {
+                window.location.href = "/"; // Redirect to home page
+              }, 2000);
+        sessionStorage.setItem("isLogin", "true"); // Set session storage
+
+        setTimeout(() => {
+          window.location.href = "/"; // Redirect to home page
+        }, 2000);
+      } else {
+        toast.error("Invalid email or password. Please try again.");
+      }
+    } else {
+      toast.error("No user data found. Please sign up first.");
+    }
+
+    setButtonLoading(false);
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    validateFields(); // Trigger validation
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+    validateFields(); // Trigger validation
+  };
+
+  return (
+    <div className="flex items-center justify-center h-screen bg-white">
+      <div className="w-full max-w-sm p-6">
+        <div className="flex justify-center mb-6">
+          <img
+            alt="Nike Logo"
+            loading="lazy"
+            width="100"
+            height="100"
+            decoding="async"
+            className="h-8"
+            src="/img2.png"
+            style={{ color: "transparent" }}
+          />
+        </div>
+        <h1 className="text-center text-lg font-bold mb-6">
+          YOUR ACCOUNT <br /> FOR EVERYTHING <br /> NIKE
+        </h1>
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <div>
+            <input
+              value={email}
+              onChange={handleEmailChange}
+              placeholder="Email address"
+              className="w-full border border-gray-300 rounded-md p-3 text-sm"
+              type="email"
+            />
+            {emailError && <span className="text-red-500 text-sm">{emailError}</span>}
+          </div>
+          <div>
+            <input
+              value={password}
+              onChange={handlePasswordChange}
+              placeholder="Password"
+              className="w-full border border-gray-300 rounded-md p-3 text-sm"
+              type="password"
+            />
+            {passwordError && <span className="text-red-500 text-sm">{passwordError}</span>}
+          </div>
+          <div className="flex items-center justify-between text-sm text-gray-600">
+            <label className="flex items-center">
+              <input className="w-4 h-4 border-gray-300 rounded focus:ring-0" type="checkbox" />
+              <span className="ml-2">Keep me signed in</span>
+            </label>
+            <a href="#" className="hover:underline">
+              Forgotten your password?
+            </a>
+          </div>
+          <button
+            type="submit"
+            className={`w-full bg-black text-white py-3 rounded-md font-bold text-sm tracking-wide ${
+              buttonLoading ? "opacity-50" : ""
+            }`}
+            disabled={buttonLoading}
+          >
+            SIGN IN
+          </button>
+        </form>
+        <p className="text-xs text-center text-gray-600 mt-4">
+          By logging in, you agree to Nike's{" "}
+          <a href="#" className="underline">
+            Privacy Policy
+          </a>{" "}
+          and{" "}
+          <a href="#" className="underline">
+            Terms of Use
+          </a>
+          .
+        </p>
+        <p className="text-center text-sm mt-4">
+          Not a Member?{" "}
+          <a href="/join-us" className="text-black underline font-semibold">
+            Join Us.
+          </a>
+        </p>
       </div>
-  )
-}
+      <ToastContainer /> {/* Toast notification container */}
+    </div>
+  );
+};
 
-export default Login_Page
+export default SignIn;

@@ -1,6 +1,6 @@
-"use client";
-
-import React, { useState } from 'react';
+"use client"
+import React, { useState } from "react";
+import { useRouter } from "next/navigation"; // Import useRouter for navigation
 import { RiShoppingBagLine } from "react-icons/ri";
 import { TbMessage2Minus } from "react-icons/tb";
 import { FaRupeeSign } from "react-icons/fa6";
@@ -8,286 +8,227 @@ import { PiMailbox } from "react-icons/pi";
 import { FaLocationDot } from "react-icons/fa6";
 import Link from "next/link";
 import { FaRegCopyright } from "react-icons/fa";
-import { useCart } from '@/context/CartContext';
-//import { useRouter } from 'next/router';
+import { useCart } from "@/context/CartContext";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function Checkout  () {
-    const {cart} = useCart();
-    const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        pan: "",
-        address:"",
-    });
+export default function Checkout() {
+  const { cart, clearCart } = useCart(); // Access clearCart function
+  const router = useRouter(); // Initialize useRouter for navigation
 
-    // const [orderId, setOrderId] = useState<string | null>(null);
-    // const [showDialog, setShowDialog] = useState(false);
-    // const router = useRouter();
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    pan: "",
+    addressLine1: "",
+    addressLine2: "",
+    addressLine3: "",
+  });
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const {name, value} = e.target;
-        setFormData({...formData, [name] : value});
-    };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-    const handleFormSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault(); // Prevent default form submission behavior
 
-        if(!formData.firstName ||
-            !formData.lastName ||
-            !formData.email ||
-            !formData.phone ||
-            !formData.pan ||
-            !formData.address
-        ){
-            toast.error("Required fields should be filled in!!!");
-            return;
-        }
+    const { firstName, lastName, email, phone, pan, addressLine1 } = formData;
 
-        // empty cart
-        if(cart.length === 0) {
-            toast.error("Cart is empty...");
-            return;
-        }
+    if (!firstName || !lastName || !email || !phone || !pan || !addressLine1) {
+      toast.error("All required fields must be filled!");
+      return;
+    }
 
-        // generate order
-        // const generateOrderId = `Order-${Math.floor(Math.random() * 1000000)}`;
-        // setOrderId(generateOrderId);
-        // setShowDialog(true);
+    if (cart.length === 0) {
+      toast.error("Your cart is empty!");
+      return;
+    }
 
-        // sessionStorage.setItem( "orderDetails", JSON.stringify({ formData, cart, orderId: generateOrderId }));
+    toast.success("Order placed successfully!");
 
-        // email content
-    //     const emailContent = {
-    //         firstName: formData.firstName || "N/A",
-    //         lastName: formData.lastName || "N/A",
-    //         email: formData.email || "N/A",
-    //         phone: formData.phone || "N/A",
-    //         pan: formData.pan || "N/A",
-    //         address: formData.address || "N/A",
-    //         orderId: generateOrderId || "N/A",
-    //         cart: cart.map(item => `${item.name} (Qty: ${item.quantity})`).join(",") || "No items in the Cart",
-    //     };
-    //     console.log("Email Content:", emailContent);
-    // };
+    // Delay the redirect and clear cart data to show the toast message
+    setTimeout(() => {
+      clearCart(); // Clear the cart state
+      localStorage.removeItem("cart"); // Remove cart data from localStorage
+      window.location.href = "/thankyou"; // Navigate to the thank-you page
+    }, 2000); // Set a 2-second delay
+  };
 
   return (
-    
-    <div className='min-h-screen p-4'>
-        {/* header */}
-        <div className='flex justify-between items-center px-4 py-3 md:px-6 bg-gray-50 '>
-            <img src="nike.png" alt="logo" className='w-10 h-10 md:w-12 md:h-12'/>
-            <div className='flex gap-4 md:gap-6 text-sm md:text-base text-black'>
-                <span><p>000 800 100 9538</p></span>
-                <span><TbMessage2Minus className='text-xl'/></span>
-                <span><RiShoppingBagLine className='text-xl'/></span>
-            </div>
+    <div className="min-h-screen p-4">
+      {/* Header */}
+      <div className="flex justify-between items-center px-4 py-3 md:px-6 bg-gray-50">
+        <img src="nike.png" alt="logo" className="w-10 h-10 md:w-12 md:h-12" />
+        <div className="flex gap-4 md:gap-6 text-sm md:text-base text-black">
+          <span>
+            <p>000 800 100 9538</p>
+          </span>
+          <span>
+            <TbMessage2Minus className="text-xl" />
+          </span>
+          <span>
+            <RiShoppingBagLine className="text-xl" />
+          </span>
+        </div>
+      </div>
+
+      {/* Main Section */}
+      <div className="flex flex-col md:flex-row justify-evenly space-y-6 md:space-y-0 md:space-x-10 mx-auto p-4 md:p-8">
+        {/* Left Section */}
+        <div className="md:w-[40%] space-y-6">
+          <h1 className="font-semibold text-xl md:text-2xl">
+            How would you like to get your order?
+          </h1>
+          <p className="text-sm md:text-lg text-gray-400 mt-2">
+            Customs regulation for India require a copy of the recipient&apos;s
+            KYC. The address on the KYC needs to match the shipping address.{" "}
+            <a href="#" className="hover:text-black">
+              <u>Learn More</u>
+            </a>
+          </p>
+          <div className="flex border-2 border-black text-lg font-semibold items-center gap-2 p-4 mt-4 rounded-md">
+            <PiMailbox className="my-1 text-xl" />
+            <h2>Deliver It</h2>
+          </div>
+
+          {/* Form */}
+          <form className="space-y-4" onSubmit={handleFormSubmit}>
+            <h1 className="font-semibold text-3xl py-4 mt-5">
+              Enter your name and address:
+            </h1>
+            <fieldset className="flex flex-col space-y-2">
+              <input
+                type="text"
+                placeholder="First Name"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleInputChange}
+                className="text-black w-full p-3 border-2 border-black rounded-md mb-3"
+              />
+              <input
+                type="text"
+                placeholder="Last Name"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleInputChange}
+                className="text-black w-full p-3 border-2 border-black rounded-md mb-3"
+              />
+            </fieldset>
+
+            <fieldset className="space-y-2">
+              <input
+                type="text"
+                placeholder="Address Line 1"
+                name="addressLine1"
+                value={formData.addressLine1}
+                onChange={handleInputChange}
+                className="text-black w-full p-3 border-2 border-black rounded-md mb-3"
+              />
+              <input
+                type="text"
+                placeholder="Address Line 2"
+                name="addressLine2"
+                value={formData.addressLine2}
+                onChange={handleInputChange}
+                className="text-black w-full p-3 border-2 border-black rounded-md mb-3"
+              />
+              <input
+                type="text"
+                placeholder="Address Line 3"
+                name="addressLine3"
+                value={formData.addressLine3}
+                onChange={handleInputChange}
+                className="text-black w-full p-3 border-2 border-black rounded-md mb-3"
+              />
+            </fieldset>
+
+            {/* Contact Info */}
+            <h1 className="font-semibold text-3xl py-4 mt-5">
+              What&apos;s your contact information?
+            </h1>
+            <fieldset className="mt-3">
+              <input
+                type="email"
+                placeholder="Email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                className="text-black w-full p-3 border-2 border-black rounded-md mb-3"
+              />
+            </fieldset>
+            <fieldset className="mt-3">
+              <input
+                type="tel"
+                placeholder="Phone Number"
+                name="phone"
+                value={formData.phone}
+                onChange={handleInputChange}
+                className="text-black w-full p-3 border-2 border-black rounded-md mb-3"
+              />
+            </fieldset>
+
+            {/* PAN */}
+            <h1 className="font-semibold text-3xl py-4 mt-5">What&apos;s your PAN?</h1>
+            <fieldset className="mt-3">
+              <input
+                type="text"
+                placeholder="PAN"
+                name="pan"
+                value={formData.pan}
+                onChange={handleInputChange}
+                className="text-black w-full p-3 border-2 border-black rounded-md mb-3"
+              />
+            </fieldset>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="bg-gray-100 text-gray-500 mt-20 text-center w-full py-5 mb-8 text-xl rounded-full"
+            >
+              Continue
+            </button>
+          </form>
         </div>
 
-        {/* main section */}
-        <div className='flex flex-col md:flex-row justify-evenly space-y-6 md:space-y-0 md:space-x-10 mx-auto p-4 md:p-8'>
-        
-        {/* left section */}
-        <div className='md:w-[40%] space-y-6'>
-            <h1 className='font-semibold text-xl md:text-2xl'>How would you like to get your order?</h1>
-
-            <p className='text-sm md:text-lg text-gray-400 mt-2'>Customs regulation for India require a copy of the recipient&apos;s KYC. The address on the 
-            KYC needs to match the shipping address. Our courier will contact you via SMS/email to obtain a copy of your KYC. The KYC 
-            will be stored securely and used solely for the purpose of clearing customs (including sharing it with customs officials) 
-            for all orders and returns. If your KYC does not match your shipping address, please click the link 
-            for more information. <a href="#" className='hover:text-black'><u>Learn More</u></a></p>  
-
-            <div className="flex border-2 border-black border-solid text-lg font-semibold items-center gap-2 p-4 mt-4 rounded-md">
-            <PiMailbox className="my-1 text-xl" /><h2>Deliver It</h2>
+        {/* Right Section */}
+        <div className="w-full md:w-[30%] space-y-3">
+          <h1 className="font-semibold text-2xl">Order Summary</h1>
+          <ul className="space-y-6">
+            {cart.length > 0 ? (
+              cart.map((item) => (
+                <li key={item.id} className="flex items-center">
+                  <img
+                    src={item.imageUrl}
+                    alt={item.name}
+                    className="w-[128px] h-[128px] rounded-md border mr-4"
+                  />
+                  <div>
+                    <p className="font-normal text-sm">{item.name}</p>
+                    <p className="text-gray-400">Qty: {item.quantity}</p>
+                  </div>
+                </li>
+              ))
+            ) : (
+              <p>Your cart is empty.</p>
+            )}
+          </ul>
+          <hr />
+          <div className="space-y-2 mt-4">
+            <div className="flex justify-between text-gray-400">
+              <p>Subtotal:</p>
+              <p className="flex">
+                <FaRupeeSign className="mr-1 my-1" />
+                {cart
+                  .reduce((total, item) => total + item.price * item.quantity, 0)
+                  .toFixed(2)}
+              </p>
             </div>
-
-            {/* form */}
-            <form className='space-y-4' onSubmit={handleFormSubmit}>
-            <h1 className='font-semibold text-3xl py-4 mt-5'>Enter your name and address:</h1>
-        <fieldset className='flex flex-col space-y-2'>
-            <input type="text" placeholder='First Name' name='firstName' value={formData.firstName} onChange={handleInputChange}
-             className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
-       
-            <input type="text" placeholder='Last Name' name='lastName' value={formData.lastName} onChange={handleInputChange} 
-            className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
-        </fieldset>
-
-        <fieldset className='space-y-2'>
-            <input type="text" placeholder='Address Line 1' name='address' value={formData.address} onChange={handleInputChange} className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
-        </fieldset>
-
-        <h6 className='text-gray-400 text-xs mx-4'>We do not ship to P.O.boxes</h6>
-
-        <fieldset className=' space-y-2'>
-            <input type="text" placeholder='Addrsess Line 2' name='address' value={formData.address} onChange={handleInputChange} 
-            className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
-  
-            <input type="text" placeholder='Address Line 3' name='address' value={formData.address} onChange={handleInputChange} 
-            className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
-        </fieldset>
-
-        <div className='flex flex-col md:flex-row gap-2'>
-            <input type="text" placeholder='Postal Code' className='text-black flex-1 w-full p-3 border-2 border-black rounded-md mb-3'/>
-        
-            <input type="text" placeholder='Locality' className='text-black flex-1 w-full p-3 border-2 border-black rounded-md mb-3'/>
+          </div>
         </div>
-
-        <div className='flex flex-col md:flex-row  gap-2'>
-       
-            <select className='w-full text-gray-400 p-3.5 border-2 border-black rounded-md mb-3'>
-                <option value="State/Territory">State/Territory</option>
-            </select>
- 
-            <input type="text" placeholder='India' className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
-     
-        </div>
-
-
-        {/* checkbox */}
-        <div className='flex items-center gap-2 mt-4'>
-            <input type="checkbox" className='w-5 h-5'/>
-            <p>Save this address to my profile</p>
-        </div>
-
-        <div className='flex items-center gap-2 mt-4 '>
-            <input type="checkbox" className='w-5 h-5'/>
-            <p>Make this my preferred address</p>
-        </div>
-
-        {/* contact info */}
-        <h1 className='font-semibold text-3xl py-4 mt-5'>What&apos;s your contact information?</h1>
-        
-        <fieldset className='mt-3'>
-            <input type="email" placeholder='Email' name='email' value={formData.email}
-        onChange={handleInputChange} className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
-        </fieldset>
-
-        <h6 className='text-gray-500 text-xs mx-4'>A confirmation email will be sent after checkout.</h6>
-
-        <fieldset className='mt-3'>
-            <input type="tel" placeholder='Phone Number' name='phone' value={formData.phone}
-            onChange={handleInputChange} className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
-        </fieldset>
-
-        <h6 className='text-gray-500 text-xs mx-4'>A carrier might contact you to confirm delivery.</h6>
-
-        {/* PAN */}
-        <h1 className='font-semibold text-3xl py-4 mt-5'>What&apos;s your PAN?</h1>
-
-        <fieldset className='mt-3'>
-            <input type="text" placeholder='PAN' name='pan' value={formData.pan}
-            onChange={handleInputChange} className='text-black w-full p-3 border-2 border-black rounded-md mb-3'/>
-        </fieldset>
-
-        <h6 className='text-gray-500 text-sm mx-4'>Enter your PAN to enable payment with UPI, Net Banking or local card methods</h6>    
-        
-        {/* checkbox */}
-        <div className='flex items-center gap-2 mt-6'>
-            <input type="checkbox" className='w-5 h-5'/>
-            <p className='text-gray-400'>Save PAN details to Nike Profile</p>
-        </div>
-
-        <div className='flex gap-2 mt-6 '>
-
-            <input type="checkbox" className='w-5 h-5'/>
-            <p className='text-gray-400'>I have read and consent to eShopWorld processing my information in accordance with the 
-            <a href="#" className='hover:text-black'><u> Privacy Statement </u></a> 
-            and <a href="#" className='hover:text-black'><u> Cookie Policy </u></a>. 
-            eShopWorld is a trusted Nike partner.</p>
-        </div>
-
-        {/* button */}
-        <button className="bg-gray-100 text-gray-500 mt-20 text-center w-full py-5 mb-8 text-xl rounded-full">Continue</button>
-        </form>
-
-        <hr/>
-        <h1 className='font-semibold text-xl p-5'>Delivery</h1>
-
-        <hr />
-        <h1 className='font-semibold text-xl p-5'>Shipping</h1>
-
-        <hr />
-        <h1 className='font-semibold text-xl p-5'>Billing</h1>
-
-        <hr />
-        <h1 className='font-semibold text-xl p-5'>Payment</h1>
-
- </div>
-        
-        {/* right section */}
-         <div className='w-full md:w-[30%] space-y-3'>
-            <h1 className='font-semibold text-2xl'>Order Summary</h1>
-            <ul className='space-y-6'>
-                {cart.map((item) => (
-                    <li key={item.id} className='flex items-center'>
-                        <img src={item.imageUrl} alt={item.name}
-                         className='w-[128px] h-[128px] rounded-md border mr-4' />
-                         <div>
-                            <p className='font-normal text-sm'>{item.name}</p>
-                            <p className='text-gray-400'>Qty: {item.quantity}</p>
-                         </div>
-                    </li>
-                ))}
-            </ul>
-            <hr />
-        
-        <div className='space-y-2 mt-4'>
-            <div className='flex justify-between text-gray-400'>
-                <p>Subtotal:</p>
-                <p className='flex'><FaRupeeSign  className=' mr-1 my-1'/>
-                {cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}</p>
-            </div>
-        
-            <div className='flex justify-between text-gray-400'>
-                <p>Delivery/Shipping</p>
-                <p>Free</p>
-            </div>
-            <hr />
-        
-            <div className='flex justify-between text-gray-700'>
-                <p>Total:</p>
-                <p className='flex text-black'><FaRupeeSign  className=' mr-1 my-1'/>
-                {cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2)}</p>
-            </div>
-        </div>
-
-        <hr />
-
-        <p className='text-gray-500 text-[11px]'>(The total reflects the price of your order, including all duties and taxes)</p>
-        
-        <h1 className='font-bold text-lg pt-6 mb-4'>Arrives Mon, 27 Mar - Wed, 12 Apr</h1>
-            
-            <div className='flex justify-between gap-4 md:gap-4 mt-3 md:mt-5'>
-                <div className='flex gap-4 w-52 h-52'>
-                <img src="Image (4).png" alt="Men's short sleeves"  />
-                </div>
-
-                <div className='w-52 h-52 space-y-1 md:space-y-3'>
-                <p className='text-black'>Nike Dri-FIT ADV TechKnit Ultra Men&apos;s Short-Sleeve Running Top</p>
-                <p className='text-gray-400'>Qty 1</p>
-                <p className='text-gray-400'>Size L</p>
-                <p className='flex text-gray-400'><FaRupeeSign  className=' mr-1 my-1'/>3 895.00</p>
-                </div>
-            </div>
-
-            <div className='flex justify-between gap-4 md:gap-4'>
-                <div className='flex gap-4 w-52 h-52'>
-                <img src="Image (2).png" alt="Men's Shoes"  />
-                </div>
-
-                <div className='w-52 h-52 space-y-1 md:space-y-3'>
-                <p className='text-black'>Nike Air Max 97 SE Men&apos;s Shoes</p>
-                <p className='text-gray-400'>Qty 1</p>
-                <p className='text-gray-400'>Size UK 8</p>
-                <p className='flex text-gray-400'><FaRupeeSign  className=' mr-1 my-1'/>16 995.00</p>
-                </div>
-            </div>
-
-            </div>
-</div>
+      </div>
 
     {/* footer */}
     <div className='flex flex-col md:flex-row justify-between items-center p-6 w-full bottom-0 text-sm bg-black'>
@@ -323,6 +264,4 @@ export default function Checkout  () {
 <ToastContainer/>
     </div>
   );
-};
-
 };

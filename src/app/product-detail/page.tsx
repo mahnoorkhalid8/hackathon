@@ -4,7 +4,6 @@ import React from 'react'
 import { FaRupeeSign } from "react-icons/fa6";
 import { BsCart3 } from "react-icons/bs";
 
-
 const Product_Detail = () => {
   return (
     <div className='flex flex-col md:flex-row justify-evenly items-center'>

@@ -1,52 +1,82 @@
 "use client";
 
-import React, { useContext, useState, createContext } from 'react';
-import { ReactNode } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useCallback,
+  useEffect,
+} from "react";
 
 type WishlistItem = {
-    id: string;
-    imageUrl: string;
-    name: string;
-    price: number;
+  image: string | undefined;
+  id: string;
+  imageUrl: string;
+  name: string;
+  price: number;
 };
 
 type WishlistContextType = {
-    wishlist: WishlistItem[];
-    addToWishlist: (item: WishlistItem) => void;
-    removeFromWishlist: (id: string) => void;
-    clearWishList: () => void;
+  wishlist: WishlistItem[];
+  addToWishlist: (item: WishlistItem) => void;
+  removeFromWishlist: (id: string) => void;
+  clearWishList: () => void;
 };
 
-const WishlistContext = createContext<WishlistContextType | undefined> (undefined);
+const WishlistContext = createContext<WishlistContextType | undefined>(
+  undefined
+);
 
-export const WishlistProvider = ({children} : {children: ReactNode}) => {
-    const [wishlist, setWishlist] = useState<WishlistItem[]> ([]);
+export const WishlistProvider = ({ children }: { children: ReactNode }) => {
+  const [wishlist, setWishlist] = useState<WishlistItem[]>([]);
 
-    const addToWishlist = (item: WishlistItem) => {
-        setWishlist((prevList) => {
-            const existingItem = prevList.find((listItem) => listItem.id === item.id);
-            if (existingItem) return prevList;
-                return [...prevList, item];
-        });
-    };
+  // Load wishlist from local storage on initial render
+  useEffect(() => {
+    const storedWishlist = localStorage.getItem("wishlist");
+    if (storedWishlist) {
+      setWishlist(JSON.parse(storedWishlist));
+    }
+  }, []);
 
-    const removeFromWishlist = (id: string) => {
-        setWishlist((prevList) => prevList.filter((item) => item.id !== id));
-    };
+  // Save wishlist to local storage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  }, [wishlist]);
 
-    const clearWishList = () => setWishlist([]);
+  const addToWishlist = useCallback((item: WishlistItem) => {
+    setWishlist((prevList) => {
+      if (prevList.some((listItem) => listItem.id === item.id)) {
+        return prevList; // Item already in the wishlist
+      }
+      return [...prevList, item];
+    });
+  }, []);
 
-    return (
-        <WishlistContext.Provider value={{wishlist, addToWishlist, removeFromWishlist, clearWishList}}>
-            {children}
-        </WishlistContext.Provider>
-    );
+  const removeFromWishlist = useCallback((id: string) => {
+    setWishlist((prevList) => prevList.filter((item) => item.id !== id));
+  }, []);
+
+  const clearWishList = useCallback(() => setWishlist([]), []);
+
+  return (
+    <WishlistContext.Provider
+      value={{
+        wishlist,
+        addToWishlist,
+        removeFromWishlist,
+        clearWishList,
+      }}
+    >
+      {children}
+    </WishlistContext.Provider>
+  );
 };
 
-    export const useWishlist = () => {
-        const context = useContext(WishlistContext);
-        if (!context) {
-            throw new Error("useWishlist must be used within a WishlistProvider");
-        };
-        return context;
-    };
+export const useWishlist = () => {
+  const context = useContext(WishlistContext);
+  if (!context) {
+    throw new Error("useWishlist must be used within a WishlistProvider");
+  }
+  return context;
+};
